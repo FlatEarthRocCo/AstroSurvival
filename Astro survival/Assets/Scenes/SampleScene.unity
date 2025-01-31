@@ -12523,18 +12523,6 @@ PrefabInstance:
       value: Rock2
       objectReference: {fileID: 0}
     - target: {fileID: 6942529162508084864, guid: 8107a9dcf23992445be3e5a2a8e1be41, type: 3}
-      propertyPath: AfterSprite
-      value: 
-      objectReference: {fileID: 1825500371, guid: cd592b870eb39f5419af2a61db62aba7, type: 3}
-    - target: {fileID: 6942529162508084864, guid: 8107a9dcf23992445be3e5a2a8e1be41, type: 3}
-      propertyPath: UseOnlyOnce
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6942529162508084864, guid: 8107a9dcf23992445be3e5a2a8e1be41, type: 3}
-      propertyPath: HowMuchToPickup
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6942529162508084864, guid: 8107a9dcf23992445be3e5a2a8e1be41, type: 3}
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 1109809801}
@@ -12782,21 +12770,13 @@ PrefabInstance:
       value: Tree
       objectReference: {fileID: 0}
     - target: {fileID: 7202413631263943657, guid: f350fd4ff36e88b4e8a1a63b85c8eaee, type: 3}
-      propertyPath: AfterSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: cdb6617e3233e264bb6fa7d12cf14fa3, type: 3}
-    - target: {fileID: 7202413631263943657, guid: f350fd4ff36e88b4e8a1a63b85c8eaee, type: 3}
-      propertyPath: UseOnlyOnce
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7202413631263943657, guid: f350fd4ff36e88b4e8a1a63b85c8eaee, type: 3}
-      propertyPath: HowMuchToPickup
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7202413631263943657, guid: f350fd4ff36e88b4e8a1a63b85c8eaee, type: 3}
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 1109809801}
+    - target: {fileID: 7202413631263943657, guid: f350fd4ff36e88b4e8a1a63b85c8eaee, type: 3}
+      propertyPath: Filter.useLayerMask
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8605633802048268879, guid: f350fd4ff36e88b4e8a1a63b85c8eaee, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.14
@@ -12850,18 +12830,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1380033335}
     m_Modifications:
-    - target: {fileID: 394967140535825990, guid: 78f68b7a0df0ced4b8382c9fc258d756, type: 3}
-      propertyPath: AfterSprite
-      value: 
-      objectReference: {fileID: 1836048931, guid: cd592b870eb39f5419af2a61db62aba7, type: 3}
-    - target: {fileID: 394967140535825990, guid: 78f68b7a0df0ced4b8382c9fc258d756, type: 3}
-      propertyPath: UseOnlyOnce
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 394967140535825990, guid: 78f68b7a0df0ced4b8382c9fc258d756, type: 3}
-      propertyPath: HowMuchToPickup
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 394967140535825990, guid: 78f68b7a0df0ced4b8382c9fc258d756, type: 3}
       propertyPath: inventoryManager
       value: 

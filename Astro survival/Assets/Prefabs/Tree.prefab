@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Filter:
     useTriggers: 0
-    useLayerMask: 0
+    useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
     useNormalAngle: 0
@@ -158,14 +158,22 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  HowMuchToPickup: 0
+  Gui: {fileID: 0}
+  OpenGui: 0
+  WaitUntilNextInteraction: 0
+  Animation: 0
+  Animator: {fileID: 0}
+  AnimationToPlayName: 
+  UseOnlyOnce: 1
+  HowMuchToPickup: 3
   spriteRenderer: {fileID: 7046758800118462184}
-  CuttedSprite: {fileID: 21300000, guid: cdb6617e3233e264bb6fa7d12cf14fa3, type: 3}
+  AfterSprite: {fileID: 21300000, guid: cdb6617e3233e264bb6fa7d12cf14fa3, type: 3}
   inventoryManager: {fileID: 0}
   itemsToPickup:
   - {fileID: 11400000, guid: b1125b0763e3ca8469602c4099b4dae7, type: 2}
-  tree: {fileID: 1993564222536834294}
+  interactionObject: {fileID: 0}
   frame: {fileID: 8011443466769381483}
+  InteractionType: 1
 --- !u!1 &5882738392679219161
 GameObject:
   m_ObjectHideFlags: 0
