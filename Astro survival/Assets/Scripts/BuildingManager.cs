@@ -85,9 +85,15 @@ public class BuildingManager : MonoBehaviour
         if (!inventoryManager.GetSelectedItem(false) | selectedItem.type != ItemType.Building ) {
             if (PlacementGhost) {
                 Destroy(PlacementGhost.gameObject);
+                placing = false;
             }
             
         }
+        } else {
+            if (PlacementGhost) {
+                Destroy(PlacementGhost.gameObject);
+                placing = false;
+            }
         }
     }
 
