@@ -53,7 +53,7 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        healthCount = 3;
+        healthCount = 100;
     }
 
     // Update is called once per frame
@@ -61,25 +61,26 @@ public class playerController : MonoBehaviour
     {
         if(healthCount > 0)
         {
+            float hearts = (float)healthCount/33;
             //heart controller
-            if(healthCount == 3)
+            if(hearts > 2)
             {
                 heart1.SetActive(true);
                 heart2.SetActive(true);
                 heart3.SetActive(true);
-            }else if (healthCount == 2)
+            }else if (hearts > 1)
             {
                 heart1.SetActive(true);
                 heart2.SetActive(true);
                 heart3.SetActive(false);
             }
-            else if (healthCount == 1)
+            else if (hearts > 0)
             {
                 heart1.SetActive(true);
                 heart2.SetActive(false);
                 heart3.SetActive(false);
             }
-            else if (healthCount <= 0)
+            else if (hearts <= 0)
             {
                 heart1.SetActive(false);
                 heart2.SetActive(false);
@@ -287,7 +288,6 @@ public class playerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("enemy"))
         {
-            healthCount--;
             hurting = true;
             faceHurt.SetActive(true);
             faceR.SetActive(false);
