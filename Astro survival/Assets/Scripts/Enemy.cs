@@ -6,7 +6,16 @@ public class Enemy : MonoBehaviour
 {
 
     public float range;
+    public Rigidbody2D rb2d;
+    public Animator enemyAnimatons;
     private Vector3 direction;
+    public int healthCount;
+    public bool directionRight;
+    public bool directionLeft;
+    public bool directionUp;
+    public bool directionDown;
+
+    public int enemyDirection;
 
     [SerializeField]
     private int damage = 5;
@@ -34,8 +43,6 @@ public class Enemy : MonoBehaviour
 
     private void Swarm()
     {
-        if (player == null)
-            return;
 
         Vector3 targetPosition = player.transform.position;
         direction = targetPosition - transform.position;
@@ -43,25 +50,52 @@ public class Enemy : MonoBehaviour
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
             direction.y = 0;
-            if (direction.x > 0)
+            if (direction.x > 0) {
                 direction.x = 1;
-            else
+                    directionRight = true;
+                    directionDown = false;
+                    directionLeft = false;
+                    directionUp = false;
+                    enemyAnimatons.Play("walkR");
+            }
+            else{
                 direction.x = -1;
+                    directionRight = false;
+                    directionDown = false;
+                    directionLeft = true;
+                    directionUp = false;
+                    enemyAnimatons.Play("walkL");
+            }
         }
         else
         {
             direction.x = 0;
-            if (direction.y > 0)
+            if (direction.y > 0) {
                 direction.y = 1;
-            else
+                    directionRight = false;
+                    directionDown = false;
+                    directionLeft = false;
+                    directionUp = true;
+                    enemyAnimatons.Play("walk");
+            }
+            else {
                 direction.y = -1;
+                    directionRight = false;
+                    directionDown = true;
+                    directionLeft = false;
+                    directionUp = false;
+                    enemyAnimatons.Play("walk");
+            }
+        }
+        if(direction.y == 0 & direction.x == 0) {
+                   enemyAnimatons.Play("idle");
         }
 
         direction.Normalize();
 
-        transform.position += direction * speed * Time.deltaTime;
+        rb2d.velocity = direction * speed;
         
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);    
+
     }
 
     private void OnTriggerEnter2D(Collider2D collider) 
