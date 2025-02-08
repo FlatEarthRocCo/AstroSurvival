@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e97ff836f513edd4dbb6a917988b41b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
+  range: 7
   rb2d: {fileID: 175602009}
   enemyAnimatons: {fileID: 175602008}
   healthCount: 0
@@ -388,6 +388,7 @@ MonoBehaviour:
   directionLeft: 0
   directionUp: 0
   directionDown: 0
+  justAttacked: 0
   enemyDirection: 0
   damage: 5
   speed: 3
@@ -424,7 +425,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.204543, y: 0.21999964}
+  m_Offset: {x: 0.34638858, y: -0.37439835}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -435,7 +436,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5015719, y: 2.2695806}
+  m_Size: {x: 2.5958042, y: 2.13449}
   m_EdgeRadius: 0
 --- !u!95 &175602008
 Animator:
@@ -517,7 +518,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.204543, y: -1.6577575}
+  m_Offset: {x: 0.18427944, y: -1.455122}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -528,7 +529,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5015719, y: 0.86464024}
+  m_Size: {x: 0.97471905, y: 1.2699114}
   m_EdgeRadius: 0
 --- !u!224 &178314058 stripped
 RectTransform:

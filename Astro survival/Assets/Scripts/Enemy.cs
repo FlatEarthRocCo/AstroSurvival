@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public bool directionLeft;
     public bool directionUp;
     public bool directionDown;
+    public bool justAttacked = false;
 
     public int enemyDirection;
 
@@ -33,17 +34,40 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(justAttacked);
+        if (enemyAnimatons.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+        {
+            justAttacked = false;
+            print("TurnedOffAttack");
+        }
+        
         Vector3 Offset = transform.position - player.transform.position;
         float Distance = Offset.magnitude;
         if(Distance <= range) {
             Swarm();
+        }else{
+            enemyAnimatons.Play("idle");
         }
 
     }
 
+    private void Attack(Collider2D collider) {
+        print("attack");
+        if(!justAttacked) {
+            justAttacked = true;
+            collider.GetComponent<playerController>().healthCount -= damage;
+            if(directionLeft == false){
+                enemyAnimatons.Play("attackHorizontalR");
+            }else{
+                enemyAnimatons.Play("attackHorizontalL");   
+            }
+            
+        }
+    }
+
     private void Swarm()
     {
-
+        if(!justAttacked) {
         Vector3 targetPosition = player.transform.position;
         direction = targetPosition - transform.position;
 
@@ -56,7 +80,9 @@ public class Enemy : MonoBehaviour
                     directionDown = false;
                     directionLeft = false;
                     directionUp = false;
+                    
                     enemyAnimatons.Play("walkR");
+                    
             }
             else{
                 direction.x = -1;
@@ -64,7 +90,9 @@ public class Enemy : MonoBehaviour
                     directionDown = false;
                     directionLeft = true;
                     directionUp = false;
+                    
                     enemyAnimatons.Play("walkL");
+                    
             }
         }
         else
@@ -72,19 +100,23 @@ public class Enemy : MonoBehaviour
             direction.x = 0;
             if (direction.y > 0) {
                 direction.y = 1;
-                    directionRight = false;
                     directionDown = false;
-                    directionLeft = false;
                     directionUp = true;
-                    enemyAnimatons.Play("walk");
+                    if(directionLeft == false){
+                        enemyAnimatons.Play("walkR");
+                    }else{
+                        enemyAnimatons.Play("walkL");
+                    }
             }
             else {
                 direction.y = -1;
-                    directionRight = false;
                     directionDown = true;
-                    directionLeft = false;
                     directionUp = false;
-                    enemyAnimatons.Play("walk");
+                    if(directionLeft == false){
+                        enemyAnimatons.Play("walkR");
+                    }else{
+                        enemyAnimatons.Play("walkL");
+                    }
             }
         }
         if(direction.y == 0 & direction.x == 0) {
@@ -94,17 +126,22 @@ public class Enemy : MonoBehaviour
         direction.Normalize();
 
         rb2d.velocity = direction * speed;
+        } else {
+            rb2d.velocity = Vector2.zero;
+        }
         
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collider) 
+    private void  OnTriggerStay2D(Collider2D collider) 
     {
+        print("Tiggered");
         if(collider.CompareTag("Player"))
-        {
-            if(collider.GetComponent<playerController>().healthCount != null) 
+        {   
+            if(collider.GetComponent<playerController>().healthCount >= 0) 
             {
-                collider.GetComponent<playerController>().healthCount -= damage;
+                Attack(collider);
+                
             }
         }
     }
