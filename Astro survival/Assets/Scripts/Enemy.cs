@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public bool directionUp;
     public bool directionDown;
     public bool justAttacked = false;
+    public Collider2D collider;
 
     public int enemyDirection;
 
@@ -34,11 +35,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(justAttacked);
         if (enemyAnimatons.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
         {
             justAttacked = false;
-            print("TurnedOffAttack");
         }
         
         Vector3 Offset = transform.position - player.transform.position;
@@ -46,15 +45,16 @@ public class Enemy : MonoBehaviour
         if(Distance <= range) {
             Swarm();
         }else{
+            rb2d.velocity = Vector2.zero;
             enemyAnimatons.Play("idle");
         }
 
     }
 
-    private void Attack(Collider2D collider) {
-        print("attack");
+    private void Attack(Collider2D col) {
         if(!justAttacked) {
             justAttacked = true;
+            collider = col;
             collider.GetComponent<playerController>().healthCount -= damage;
             if(directionLeft == false){
                 enemyAnimatons.Play("attackHorizontalR");
@@ -133,15 +133,22 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void  OnTriggerStay2D(Collider2D collider) 
+    private void TurnOffAttack(){
+        player.GetComponent<playerController>().hurting = false;
+        print("TurnOffAttck");
+    }
+
+    private void HurtPlayer() {
+        player.GetComponent<playerController>().OnHurting(damage);
+    }
+
+    private void  OnTriggerStay2D(Collider2D col) 
     {
-        print("Tiggered");
-        if(collider.CompareTag("Player"))
+        if(col.CompareTag("Player"))
         {   
-            if(collider.GetComponent<playerController>().healthCount >= 0) 
+            if(col.GetComponent<playerController>().healthCount >= 0) 
             {
-                Attack(collider);
-                
+                Attack(col);
             }
         }
     }

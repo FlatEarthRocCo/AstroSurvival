@@ -284,10 +284,8 @@ public class playerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void OnHurting(int damage)
     {
-        if (collision.gameObject.CompareTag("enemy"))
-        {
             hurting = true;
             faceHurt.SetActive(true);
             faceR.SetActive(false);
@@ -295,8 +293,7 @@ public class playerController : MonoBehaviour
             faceD.SetActive(false);
             faceU.SetActive(false);
             playerAnimatons.Play("playerHurt");
-            transform.position = Vector2.MoveTowards(transform.position, collision.gameObject.transform.position, -70 * Time.deltaTime);
-        }
+            healthCount = healthCount - damage;
     }
 
     public void restartGame()
