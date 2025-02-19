@@ -30,17 +30,9 @@ public class playerController : MonoBehaviour
 
     public bool hurting;
 
-    public GameObject swordDown;
-    public GameObject swordUp;
-    public GameObject swordRight;
-    public GameObject swordLeft;
-    public GameObject bowDown;
-    public GameObject bowUp;
-    public GameObject bowRight;
-    public GameObject bowLeft;
-    public int weaponInUse;
+    public GameObject laserPrefab;
 
-    public GameObject arrowPrefab;
+    private GameObject laser;
 
     public int healthCount;
     public GameObject gameOverScreen;
@@ -86,38 +78,6 @@ public class playerController : MonoBehaviour
                 heart2.SetActive(false);
                 heart3.SetActive(false);
             }
-            //weapons in use
-
-            if(weaponInUse == 0)
-            {
-                swordDown.SetActive(true);
-                swordLeft.SetActive(true);
-                swordRight.SetActive(true);
-                swordUp.SetActive(true);
-                bowDown.SetActive(false);
-                bowLeft.SetActive(false);
-                bowRight.SetActive(false);
-                bowUp.SetActive(false);
-            }else if(weaponInUse == 1)
-            {
-                swordDown.SetActive(false);
-                swordLeft.SetActive(false);
-                swordRight.SetActive(false);
-                swordUp.SetActive(false);
-                bowDown.SetActive(true);
-                bowLeft.SetActive(true);
-                bowRight.SetActive(true);
-                bowUp.SetActive(true);
-            }
-
-            if (Input.GetKey(KeyCode.Alpha1))
-            {
-                weaponInUse = 0;
-            }
-            if (Input.GetKey(KeyCode.Alpha2))
-            {
-                weaponInUse = 1;
-            }
 
             if(attacking == false && hurting == false)
             {
@@ -144,6 +104,7 @@ public class playerController : MonoBehaviour
                     directionDown = false;
                     directionLeft = false;
                     directionUp = false;
+                    turnToolsOf();
                     faceR.SetActive(true);
                     faceL.SetActive(false);
                     faceD.SetActive(false);
@@ -159,6 +120,7 @@ public class playerController : MonoBehaviour
                     directionDown = false;
                     directionLeft = true;
                     directionUp = false;
+                    turnToolsOf();
                     faceR.SetActive(false);
                     faceL.SetActive(true);
                     faceD.SetActive(false);
@@ -174,6 +136,7 @@ public class playerController : MonoBehaviour
                     directionDown = false;
                     directionLeft = false;
                     directionUp = true;
+                    turnToolsOf();
                     faceR.SetActive(false);
                     faceL.SetActive(false);
                     faceD.SetActive(false);
@@ -188,6 +151,7 @@ public class playerController : MonoBehaviour
                     directionDown = true;
                     directionLeft = false;
                     directionUp = false;
+                    turnToolsOf();
                     faceR.SetActive(false);
                     faceL.SetActive(false);
                     faceD.SetActive(true);
@@ -226,42 +190,23 @@ public class playerController : MonoBehaviour
 
             if(Input.GetKey(KeyCode.Space) && attackCoolDownTime <= 0 && hurting == false)
             {
+                attacking = true;
                 if (directionUp)
                 {
-                    playerAnimatons.Play("attackU");
+                    playerAnimatons.Play("AttackU");
                 }else if (directionDown)
                 {
-                    playerAnimatons.Play("attackD");
+                    playerAnimatons.Play("AttackD");
                 }
                 else if (directionRight)
                 {
-                    playerAnimatons.Play("attackR");
+                    playerAnimatons.Play("AttackR");
                 }
                 else if (directionLeft)
                 {
-                    playerAnimatons.Play("attackL");
+                    playerAnimatons.Play("AttackL");
                 }
-
-                if(weaponInUse == 1)
-                {
-                    if (directionUp)
-                    {
-                        Instantiate(arrowPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, 90)));
-                    }
-                    if (directionDown)
-                    {
-                        Instantiate(arrowPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, 270)));
-                    }
-                    if (directionRight)
-                    {
-                        Instantiate(arrowPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
-                    }
-                    if (directionLeft)
-                    {
-                        Instantiate(arrowPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, 180)));
-                    }
-                }
-
+                  
                 moveInput.y = 0;
                 moveInput.x = 0;
                 rb2d.velocity = moveInput * moveSpeed;
@@ -294,6 +239,19 @@ public class playerController : MonoBehaviour
             faceU.SetActive(false);
             playerAnimatons.Play("playerHurt");
             healthCount = healthCount - damage;
+    }
+
+    public void turnToolsOf(){
+        faceL.transform.GetChild(0).gameObject.SetActive(false);
+        faceR.transform.GetChild(0).gameObject.SetActive(false);
+        faceU.transform.GetChild(0).gameObject.SetActive(false);
+        faceD.transform.GetChild(0).gameObject.SetActive(false);
+    }
+    public void turnOffAttacking() {
+        attacking = false;
+    }
+    public void fireLaser() {
+        laser = Instantiate(laserPrefab, transform.position, transform.rotation);
     }
 
     public void restartGame()
