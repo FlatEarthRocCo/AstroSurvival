@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,7 +16,7 @@ public class playerController : MonoBehaviour
     public bool directionUp;
     public bool directionDown;
 
-    public int playerDirection;
+    public Vector2 playerDirection;
 
     public GameObject faceR;
     public GameObject faceL;
@@ -31,7 +33,7 @@ public class playerController : MonoBehaviour
     public bool hurting;
 
     public GameObject laserPrefab;
-
+    public float lunchForce;
     private GameObject laser;
 
     public int healthCount;
@@ -165,18 +167,22 @@ public class playerController : MonoBehaviour
                     if (directionDown == true)
                     {
                         playerAnimatons.Play("playerIdleD");
+                        playerDirection = new Vector2(0, -1);
                     }
                     else if (directionRight == true)
                     {
                         playerAnimatons.Play("playerIdleR");
+                        playerDirection = new Vector2(1, 0);
                     }
                     else if (directionLeft == true)
                     {
                         playerAnimatons.Play("playerIdleL");
+                        playerDirection = new Vector2(-1, 0);
                     }
                     else if (directionUp == true)
                     {
                         playerAnimatons.Play("playerIdleU");
+                        playerDirection = new Vector2(0, 1);
                     }
                     
                     
@@ -206,7 +212,7 @@ public class playerController : MonoBehaviour
                 {
                     playerAnimatons.Play("AttackL");
                 }
-                  
+
                 moveInput.y = 0;
                 moveInput.x = 0;
                 rb2d.velocity = moveInput * moveSpeed;
@@ -251,7 +257,10 @@ public class playerController : MonoBehaviour
         attacking = false;
     }
     public void fireLaser() {
+        print("FireLaser");
         laser = Instantiate(laserPrefab, transform.position, transform.rotation);
+        laser.GetComponent<Rigidbody2D>().velocity = playerDirection * lunchForce;
+        print(transform.rotation);
     }
 
     public void restartGame()
