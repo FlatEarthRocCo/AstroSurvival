@@ -35,6 +35,7 @@ public class playerController : MonoBehaviour
     public GameObject laserPrefab;
     public float lunchForce;
     private GameObject laser;
+    Quaternion rotationOfLaser;
 
     public int healthCount;
     public GameObject gameOverScreen;
@@ -258,9 +259,8 @@ public class playerController : MonoBehaviour
     }
     public void fireLaser() {
         print("FireLaser");
-        laser = Instantiate(laserPrefab, transform.position, transform.rotation);
+        laser = Instantiate(laserPrefab, transform.position, rotationOfLaser);
         laser.GetComponent<Rigidbody2D>().velocity = playerDirection * lunchForce;
-        print(transform.rotation);
     }
 
     public void restartGame()
