@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
+    public Animator LaserAnimator;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        LaserAnimator = GetComponent<Animator>();
+        LaserAnimator.Play("Base Layer.Charged Animation");
     }
 
     // Update is called once per frame
@@ -20,16 +22,29 @@ public class Laser : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-    private void OnTriggerStay2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        print("Tiggered!");
-        if (col.CompareTag("Enemy"))
+        if (col.CompareTag("Player") == false)
         {
-            if (col.GetComponent<Enemy>().healthCount >= 0)
+            print("Tiggered!");
+            if (col.CompareTag("enemy"))
             {
-                col.GetComponent<Enemy>().healthCount -= 50;
+                if (col.GetComponent<Enemy>().healthCount >= 0)
+                {
+                    col.GetComponent<Enemy>().healthCount -= 50;
+                }
             }
+            Explode();
+            
         }
+    }
+    private void Explode()
+    {
+        Destroy(transform.GetComponent<Rigidbody2D>()); 
+        LaserAnimator.Play("Base Layer.Hit"); 
+    }
+    private void Destroy()
+    {
         Destroy(gameObject);
     }
 }

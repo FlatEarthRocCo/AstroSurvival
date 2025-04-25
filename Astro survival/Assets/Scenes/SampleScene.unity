@@ -383,7 +383,7 @@ MonoBehaviour:
   range: 7
   rb2d: {fileID: 175602009}
   enemyAnimatons: {fileID: 175602008}
-  healthCount: 0
+  healthCount: 100
   directionRight: 0
   directionLeft: 0
   directionUp: 0
@@ -7548,7 +7548,7 @@ MonoBehaviour:
   justAttacked: 0
   hurting: 0
   laserPrefab: {fileID: 4016568652525067061, guid: 49f7cd077643a9b4ea403842b6c115bd, type: 3}
-  lunchForce: 5
+  lunchForce: 10
   healthCount: 100
   gameOverScreen: {fileID: 736370077}
   heart1: {fileID: 75381277}
