@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -16,6 +17,8 @@ public class Enemy : MonoBehaviour
     public bool directionDown;
     public bool justAttacked = false;
     public Collider2D collider;
+    public SpriteRenderer spriteRenderer;
+    public bool EnemyHurt;
 
     public int enemyDirection;
 
@@ -29,6 +32,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -39,15 +43,25 @@ public class Enemy : MonoBehaviour
         {
             justAttacked = false;
         }
-        
-        Vector3 Offset = transform.position - player.transform.position;
-        float Distance = Offset.magnitude;
-        if(Distance <= range) {
-            Swarm();
-        }else{
+        if (EnemyHurt == false)
+        {
+            Vector3 Offset = transform.position - player.transform.position;
+            float Distance = Offset.magnitude;
+            if (Distance <= range)
+            {
+                Swarm();
+            }
+            else
+            {
+                rb2d.velocity = Vector2.zero;
+                enemyAnimatons.Play("idle");
+            }
+            
+        }else
+        {
             rb2d.velocity = Vector2.zero;
-            enemyAnimatons.Play("idle");
         }
+
 
     }
 
@@ -151,5 +165,33 @@ public class Enemy : MonoBehaviour
                 Attack(col);
             }
         }
+    }
+    
+    public void TakeHit(GameObject Laser)
+    {
+        EnemyHurt = true;
+        if (Laser.transform.position.x < gameObject.transform.position.x)
+        {
+            enemyAnimatons.Play("takeHitL");
+        }
+        else
+        {
+            enemyAnimatons.Play("takeHitR");
+        }
+    }
+    public void TurnOffHurting()
+    {
+        if (healthCount <= 0)
+        {
+            enemyAnimatons.Play("death");
+        }
+        else
+        {
+            EnemyHurt = false;
+        }
+    }
+    public void DestroyMyself()
+    {
+        Destroy(gameObject);
     }
 }

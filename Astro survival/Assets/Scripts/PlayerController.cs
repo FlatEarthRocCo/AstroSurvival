@@ -263,6 +263,11 @@ public class playerController : MonoBehaviour
         laser.GetComponent<Rigidbody2D>().velocity = playerDirection * lunchForce;
     }
 
+    public void TurnOffHurting()
+    {
+        hurting = false;    
+    }
+
     public void restartGame()
     {
         SceneManager.LoadScene(0);
